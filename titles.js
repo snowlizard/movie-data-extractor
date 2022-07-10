@@ -20,9 +20,8 @@ module.exports = [
     'avatar',
     'the-dark-knight',
     'the-hangover',
-    'yesman',
+    'yes-man',
     'zoolander',
     'tropic-thunder',
-    'inglourious-bastards',
     'slumdog-millionaire'
 ];
