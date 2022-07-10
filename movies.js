@@ -5,6 +5,7 @@ const fs = require('fs');
 let movieData = 'Title,Year,Rated,Released,Actors,Director(s),Plot,Metascore,Poster,Genre\n';
 
 let fData = [];
+const regexp = /\"/g;
 
 titles.forEach(title => fData.push(
     fetch(`https://www.omdbapi.com/?t=${title}&apikey=5edc894&plot=full`)
@@ -15,7 +16,7 @@ Promise.all(fData)
     .then( d => {
         d.forEach( m => {
             movieData += `"${m.Title}",${m.Year},${m.Rated},${m.Released},"${m.Actors}",`;
-            movieData += `"${m.Director}","${m.Plot}",${m.Metascore},"${m.Poster}","${m.Genre}"\n`;
+            movieData += `"${m.Director}","${m.Plot.replaceAll(regexp, '""')}",${m.Metascore},"${m.Poster}","${m.Genre}"\n`;
         });
         
         fs.writeFile('data.csv', movieData, "utf-8", (error) => {
