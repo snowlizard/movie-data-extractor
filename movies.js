@@ -13,7 +13,10 @@ titles.forEach(title => fData.push(
 Promise.all(fData)
     .then( response => Promise.all(response.map(r => r.json())) )
     .then( d => {
-        d.forEach( m => movieData += `"${m.Title}",${m.Year},${m.Rated},${m.Released},"${m.Actors}","${m.Director}","${m.Plot}",${m.Metascore},"${m.Poster}","${m.Genre}"\n`);
+        d.forEach( m => {
+            movieData += `"${m.Title}",${m.Year},${m.Rated},${m.Released},"${m.Actors}",`;
+            movieData += `"${m.Director}","${m.Plot}",${m.Metascore},"${m.Poster}","${m.Genre}"\n`;
+        });
         
         fs.writeFile('data.csv', movieData, "utf-8", (error) => {
             if(error) console.log(error);
